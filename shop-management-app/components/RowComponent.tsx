@@ -14,7 +14,7 @@ export default function RowComponent({
 
   const toggleOpen = () => setIsOpen(!isOpen);
   const toggleManagerAccess = () => {
-    shop.manager_access = !shop.manager_access;
+    shop.setManagerAccess(!shop.manager_access);
     onChange();
   };
   const toggleAdminAccess = () => {
@@ -40,7 +40,7 @@ export default function RowComponent({
         <td>
           <input
             type="checkbox"
-            checked={shop.manager_access}
+            checked={shop.hasManagerAccess()}
             onChange={toggleManagerAccess}
           />
         </td>

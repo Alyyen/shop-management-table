@@ -44,4 +44,27 @@ export class Shop {
       });
     }
   }
+
+  hasManagerAccess(): boolean {
+    // if no children, return manager_access
+    if (!this.hasChild()) return this.manager_access;
+    // else foreach of children
+    let res = true;
+    this.children.forEach((child) => {
+      if (!child.hasManagerAccess()) res = false;
+    });
+
+    return res;
+  }
+
+  setManagerAccess(access: boolean) {
+    // if no children & children, set the access value
+    this.manager_access = access;
+    if (this.hasChild()) {
+      // call back for children too
+      this.children.forEach((child) => {
+        child.setManagerAccess(access);
+      });
+    }
+  }
 }
