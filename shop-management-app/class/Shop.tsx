@@ -17,4 +17,8 @@ export class Shop {
 
     return new Shop(json.id, json.name, children);
   }
+
+  hasChild(): boolean {
+    return this.children?.length > 0;
+  }
 }
