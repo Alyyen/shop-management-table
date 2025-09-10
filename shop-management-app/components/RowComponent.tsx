@@ -1,14 +1,26 @@
 import { Shop } from "@/class/Shop";
 import { useState } from "react";
 
-export default function RowComponent({ shop, level = 0 }: any) {
+export default function RowComponent({
+  shop,
+  level = 0,
+  onChange,
+}: {
+  shop: Shop;
+  level?: number;
+  onChange: () => void;
+}) {
   const [isOpen, setIsOpen] = useState(false);
-  const [hasManagerAccess, setHasManagerAccess] = useState(shop.manager_access);
-  const [hasAdminAccess, setHasAdminAccess] = useState(shop.admin_access);
 
   const toggleOpen = () => setIsOpen(!isOpen);
-  const toggleManagerAccess = () => setHasManagerAccess(!hasManagerAccess);
-  const toggleAdminAccess = () => setHasAdminAccess(!hasAdminAccess);
+  const toggleManagerAccess = () => {
+    shop.manager_access = !shop.manager_access;
+    onChange();
+  };
+  const toggleAdminAccess = () => {
+    shop.setAdminAccess(!shop.admin_access);
+    onChange();
+  };
 
   return (
     <>
@@ -20,24 +32,22 @@ export default function RowComponent({ shop, level = 0 }: any) {
               style={{ marginRight: "8px" }}
               className={`${!shop.hasChild() && "hidden"}`}
             >
-              {isOpen ? "▾" : "▸"}
+              {isOpen ? "\u2206" : "\u2207"}
             </button>
           )}
           {shop.name}
         </td>
         <td>
           <input
-            value={shop.manager_access}
             type="checkbox"
-            checked={hasManagerAccess}
+            checked={shop.manager_access}
             onChange={toggleManagerAccess}
           />
         </td>
         <td>
           <input
-            value={shop.admin_access}
             type="checkbox"
-            checked={hasAdminAccess}
+            checked={shop.hasAdminAccess()}
             onChange={toggleAdminAccess}
           />
         </td>
@@ -45,7 +55,12 @@ export default function RowComponent({ shop, level = 0 }: any) {
 
       {isOpen &&
         shop.children?.map((child: Shop) => (
-          <RowComponent key={child.id} shop={child} level={level + 1} />
+          <RowComponent
+            key={child.id}
+            shop={child}
+            level={level + 1}
+            onChange={onChange}
+          />
         ))}
     </>
   );

@@ -21,4 +21,27 @@ export class Shop {
   hasChild(): boolean {
     return this.children?.length > 0;
   }
+
+  hasAdminAccess(): boolean {
+    // if no children, return admin_access
+    if (!this.hasChild()) return this.admin_access;
+    // else foreach of children
+    let res = true;
+    this.children.forEach((child) => {
+      if (!child.hasAdminAccess()) res = false;
+    });
+
+    return res;
+  }
+
+  setAdminAccess(access: boolean) {
+    // if no children & children, set the access value
+    this.admin_access = access;
+    if (this.hasChild()) {
+      // call back for children too
+      this.children.forEach((child) => {
+        child.setAdminAccess(access);
+      });
+    }
+  }
 }

@@ -1,14 +1,20 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import RowComponent from "@/components/RowComponent";
 import { Shop } from "@/class/Shop";
+import { useEffect, useState } from "react";
 
 type Props = {
   shopList: Shop[];
 };
 
 const TableComponent = ({ shopList }: Props) => {
+  const [providedShopList, setProvidedShopList] = useState<Shop[]>(shopList);
+
+  useEffect(() => {
+    setProvidedShopList(shopList);
+  }, [shopList]);
+
   return (
     <table>
       <thead>
@@ -19,8 +25,12 @@ const TableComponent = ({ shopList }: Props) => {
         </tr>
       </thead>
       <tbody>
-        {shopList.map((shop: Shop) => (
-          <RowComponent key={shop.id} shop={shop} />
+        {providedShopList.map((shop: Shop) => (
+          <RowComponent
+            key={shop.id}
+            shop={shop}
+            onChange={() => setProvidedShopList([...providedShopList])}
+          />
         ))}
       </tbody>
     </table>
