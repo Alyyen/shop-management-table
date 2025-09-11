@@ -4,7 +4,9 @@ This project is a technical test, the purpose is to dynamically check and unchec
 
 ## Preview
 
-![Demo gif](./shop-management-app/public/demo.mov)
+### Demo
+https://github.com/user-attachments/assets/c1e6f7ac-8a43-448b-b097-e4dafce14d41
+
 
 ![Preview image](./shop-management-app/public/preview.png)
 
