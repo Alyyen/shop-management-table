@@ -17,9 +17,9 @@ export default function TableComponent({ shopList }: { shopList: Shop[] }) {
       <table>
         <thead>
           <tr>
-            <th>Nom</th>
-            <th>Accès Manager</th>
-            <th>Accès Admin</th>
+            <th className="px-4 py-2 text-left">Nom</th>
+            <th className="px-4 py-2 text-left">Accès Manager</th>
+            <th className="px-4 py-2 text-left">Accès Admin</th>
           </tr>
         </thead>
         <tbody>

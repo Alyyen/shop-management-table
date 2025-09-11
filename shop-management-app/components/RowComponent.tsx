@@ -32,19 +32,19 @@ export default function RowComponent({
               style={{ marginRight: "8px" }}
               className={`${!shop.hasChild() && "hidden"}`}
             >
-              {isOpen ? "\u2206" : "\u2207"}
+              {isOpen ? "\u2304" : ">"}
             </button>
           )}
           {shop.name}
         </td>
-        <td>
+        <td className="text-center">
           <input
             type="checkbox"
             checked={shop.hasManagerAccess()}
             onChange={toggleManagerAccess}
           />
         </td>
-        <td>
+        <td className="text-center">
           <input
             type="checkbox"
             checked={shop.hasAdminAccess()}
